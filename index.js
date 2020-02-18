@@ -29,7 +29,7 @@ app.listen(port, () => console.log(`Started on port ${port}!`))
 // Establish web socket connection 
 // and listen for messages
 
-const wss = new WebSocket.Server({port: 80});
+const wss = new WebSocket.Server({port: 82});
 
 var clients = []; 
 var count = 0;
