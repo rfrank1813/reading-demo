@@ -12,6 +12,8 @@
 
     body {
       font-family: georgia;
+
+      background: url(/gradient.png);
     }
 
     h1 {
@@ -19,8 +21,42 @@
       text-align: center;
       margin: 30px auto;
       font-size: 300px;
-      margin-top: 100px;
-      text-transform: uppercase
+      margin-top: 150px;
+      text-transform: none;
+      font-family: proxima nova;
+      color: #AAB0D8;
+    }
+
+    .word-container {
+      display: block; 
+      width: 100%; 
+      position: fixed; 
+      top: 0px; 
+      bottom: 0px; 
+    }
+
+    .tracker {
+      height: 100px;
+      position: fixed; 
+      bottom: 0; 
+      width: 100%;
+    }
+
+    .tracker img {
+      float: left; 
+      margin-right: 5px; 
+      width: 100px;
+      height: 100px;
+    }
+
+    .big-correct {
+      width: 450px;
+      height: 450px; 
+    }
+
+    button {
+      font-size: 1em;
+      padding: .2em;
     }
 
   </style>
@@ -30,11 +66,15 @@
 
 <BODY>
 
-
-  <h1 id="word">
-    <button onclick="ready()">Hit me!</button>
-  </h1>
+  <div class="word-container">
+    <h1 id="word">
+      <button onclick="ready()">Go!</button>
+    </h1>
+  </div>
+  
   <div style="clear: both"></div>
+
+  <div class="tracker"></div>
 
 
 
@@ -65,11 +105,17 @@
       let msg= e.data; 
 
       switch(msg) {
+
         case 'correct':
           var sound = new Howl({
             src: ["/positive.mp3"]
           });
           sound.play();
+
+          $('.tracker').append("<img src='/happy.png'/>")
+          $("#word").hide(); 
+          $("#word").html('<img class="big-correct" src="/happy.png" /> ')
+          $("#word").fadeIn(); 
           break;
         case 'incorrect':
           var sound = new Howl({
@@ -78,7 +124,9 @@
           sound.play();
           break;
         default:
+          $("#word").hide(); 
           $("#word").html(msg);
+          $("#word").fadeIn(); 
       }
     }     
   </script> 
@@ -87,7 +135,7 @@
   
 
   function ready() {
-    $("#word").html("Waiting...");
+    $("#word").html("cat");
   }
 
   // displayButtons function
