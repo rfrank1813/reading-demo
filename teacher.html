@@ -144,6 +144,7 @@ All you have to do to get hints working is....
 
   <div class="divider"></div> 
 
+  <div id="hint-message" style="display: none; text-align: center; font-size: 2em">tap a sound to send a hint</div>
   <div class="hint-container">
     <span style="font-size: 120px"> tap word to start </span>
   </div>
@@ -196,9 +197,14 @@ All you have to do to get hints working is....
 
     html = "";
     phonemes.forEach( function(ph,i) {
+      if(i != 0) {
+        html = html + "<span>&bull;</span>";
+      }
       html = html + `<span onclick='sendHint(${i}, "${ph}")'>${ph}</span>`
     })
     $(".hint-container").html(html);
+
+    $("#hint-message").show()
 
 
     // send the word via pushMessage
