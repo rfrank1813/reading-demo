@@ -13,6 +13,10 @@ sendFileOptions = {
 
 app.use(express.static('public'))
 
+
+app.get('/', (req,res) =>
+  res.sendFile('index.html', sendFileOptions))
+
 app.get('/student', (req, res) => 
   res.sendFile('student.html', sendFileOptions))
 

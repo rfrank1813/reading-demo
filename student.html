@@ -6,6 +6,8 @@
   integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
   crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
 
 
   <style>
@@ -19,11 +21,10 @@
     h1 {
       display: block;
       text-align: center;
-      margin: 30px auto;
+      margin: 100px auto;
       font-size: 300px;
-      margin-top: 150px;
       text-transform: none;
-      font-family: proxima nova;
+      font-family: "proxima-nova";
       color: #AAB0D8;
     }
 
@@ -104,6 +105,16 @@
       console.log("message received");
       let msg= e.data; 
 
+      // Handle hints
+      if(msg.includes("hint-")) {
+        parts = msg.split("-");
+        position = parts[1]
+        doHint(position);
+        return; 
+      }
+
+
+      // Handle everything else 
       switch(msg) {
 
         case 'correct':
@@ -126,6 +137,26 @@
         default:
           $("#word").hide(); 
           $("#word").html(msg);
+
+          console.log(msg)
+          window.msg = msg
+          
+          // Parse string to array 
+          gpcs = msg.split(","); 
+          console.log(gpcs);
+
+
+          // Put each gpc of the word into a span 
+          html = "";
+          gpcs.forEach( function(gpc, i) {
+            gpc = gpc.split("~")
+            gr = gpc[0]
+            ph = gpc[1]
+            html = html + `<div style='display:inline-block' id="position${i}" phoneme="${ph}">${gr}</div>`
+
+          })
+          $("#word").html(html);
+
           $("#word").fadeIn(); 
       }
     }     
@@ -133,9 +164,23 @@
 
 <script> 
   
+  function doHint(position) {
+    id = `#position${position}`
+
+    phoneme = $(id).attr("phoneme")
+
+    // Play the sound
+    var sound = new Howl({
+      src: ["/phonemes/"+phoneme+".mp3"]
+    });
+    sound.play();
+
+    // Pulse the letters
+    animateCSS(id, 'pulse');
+  }
 
   function ready() {
-    $("#word").html("cat");
+    $("#word").html("waiting...");
   }
 
   // displayButtons function
@@ -159,6 +204,25 @@
     // });
 
   }
+
+
+  function animateCSS(element, animationName, callback) {
+    console.log("element");
+    console.log(element)
+    const node = document.querySelector(element)
+    console.log("node");
+    console.log(node)
+    node.classList.add('animated', animationName)
+
+    function handleAnimationEnd() {
+        node.classList.remove('animated', animationName)
+        node.removeEventListener('animationend', handleAnimationEnd)
+
+        if (typeof callback === 'function') callback()
+    }
+
+    node.addEventListener('animationend', handleAnimationEnd)
+    }
 
   $(document).ready(function() {
     setup();
