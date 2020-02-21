@@ -43,6 +43,8 @@ All you have to do to get hints working is....
   <!-- Adds wordList to the global scope. -->
   <script src="/words_curriculum.js"></script>
 
+  <link rel="stylesheet" href="https://static.classdojo.com/fonts/proxima/proximanova-default-stack.css"/>
+
   <style>
 
     body {
@@ -87,7 +89,7 @@ All you have to do to get hints working is....
     .smiley-buttons {
       height: 300px;
       width: 100%; 
-      padding: 100px 0;
+      padding: 50px 0;
     }
 
     .smiley-buttons button {
@@ -109,13 +111,14 @@ All you have to do to get hints working is....
 
     .hint-container span {
       font-size: 240px;
+      line-height: 120px;
       cursor: pointer;
     }
 
     .divider {
       background: rgba(244, 236, 250, 10);
       clear: both;
-      height: 30px;
+      height: 20px;
       width: 60%;
       margin: 40px auto;
       border-radius: 30px;
@@ -133,11 +136,11 @@ All you have to do to get hints working is....
 <body>
 
   <div class="smiley-buttons">
-    <button onclick="pushMessage('correct')">
+    <button onclick="gradeAnswer(1)">
       <img src="/happy.png"/>
     </button>
 
-    <button onclick="pushMessage('incorrect')">
+    <button onclick="gradeAnswer(0)">
       <img src="/dead.png"/>
     </button>
   </div>  
@@ -200,7 +203,7 @@ All you have to do to get hints working is....
       if(i != 0) {
         html = html + "<span>&bull;</span>";
       }
-      html = html + `<span onclick='sendHint(${i}, "${ph}")'>${ph}</span>`
+      html = html + `<span onclick='sendHint(${i}, "${ph}")'>${graphemes[i]}</span>`
     })
     $(".hint-container").html(html);
 
@@ -219,6 +222,86 @@ All you have to do to get hints working is....
     console.log("phoneme: " + phoneme); 
     var msg = `hint-${position}-${phoneme}`
     pushMessage(msg);
+  }
+
+
+  function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+
+  // Grade answer 
+  function gradeAnswer(correct) {
+    if(correct) {
+      pushMessage('correct');
+      setTimeout(pickWord, 2000, 1);
+    } else {
+      pushMessage('incorrect');
+      setTimeout(pickWord, 1500, 0);
+    }
+  }
+
+
+  // Pick new word and send to student 
+  function pickWord(correct) {
+
+    // set percentile if not set 
+    if (typeof percentile === 'undefined') {
+      percentile = 5; 
+    }
+
+
+    // start a streak counter if one not set 
+    if (typeof streak === 'undefined') {
+      streak = 0; 
+    }
+
+    // if correct, increment the streak. otherwise, reset streak and jump down a percentile level
+    if (correct) {
+      streak++; 
+    } else {
+      streak = 0;
+      percentile -= 5;
+    }
+
+    // tell them when they've won  
+    if (percentile == 100 && streak >=6) {
+      alert("You beat the game!");  
+    }
+
+    // if streak over 5, increment percentile by 5 and reset streak 
+    if(streak >=6) {
+      percentile += 5;
+      streak = 0;
+    }
+
+    // make sure percentile is positive 
+    if (percentile < 5) {
+      percentile = 5; 
+    }
+
+    // make sure percentile is not over 100 
+    if (percentile > 100) {
+      percentile = 100; 
+    }
+
+    // Get max and min index in wordList based on percentile 
+    num_words = Object.keys(wordList).length
+    max_index = Math.floor( num_words * (percentile/100) ) - 1
+    min_index = Math.floor( num_words * (percentile - 5) / 100 ) 
+
+    // pick randomly from within that index 
+    next_word_index = randomIntFromInterval(min_index, max_index)
+
+    word = Object.keys(wordList)[next_word_index];
+    
+    console.log("Percentile: ", percentile); 
+    console.log("Streak: ", streak); 
+    console.log("Index:", next_word_index);
+    console.log("word: ", word);
+
+    // set that word as the current word 
+    updateWord( word )
   }
 
 

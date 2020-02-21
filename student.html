@@ -8,12 +8,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
+  <link rel="stylesheet" href="https://static.classdojo.com/fonts/proxima/proximanova-default-stack.css"/>
+
 
 
   <style>
 
     body {
-      font-family: georgia;
+      font-family: "proxima-nova";
 
       background: url(/gradient.png);
     }
@@ -124,18 +126,28 @@
           sound.play();
 
           $('.tracker').append("<img src='/happy.png'/>")
-          $("#word").hide(); 
-          $("#word").html('<img class="big-correct" src="/happy.png" /> ')
-          $("#word").fadeIn(); 
+          $("#word").html('<img class="big-correct fast" src="/happy.png" /> ')
+
+          animateCSS(".big-correct", "zoomIn", function() {
+            animateCSS(".big-correct", "fadeOut", function() {
+              $(".big-correct").hide(); 
+            });
+          });
+          
           break;
         case 'incorrect':
           var sound = new Howl({
             src: ["/wrong.mp3"]
           });
           sound.play();
+
+          $('.tracker').append("<img src='/dead.png'/>")
+          $("#word").hide(); 
+          $("#word").html('<img class="big-correct" src="/dead.png" /> ')
+          $("#word").fadeIn(); 
           break;
         default:
-          $("#word").hide(); 
+          // $("#word").hide(); 
           $("#word").html(msg);
 
           console.log(msg)
@@ -157,7 +169,8 @@
           })
           $("#word").html(html);
 
-          $("#word").fadeIn(); 
+          animateCSS('#word', 'zoomIn');
+          // $("#word").fadeIn(); 
       }
     }     
   </script> 
@@ -176,7 +189,7 @@
     sound.play();
 
     // Pulse the letters
-    animateCSS(id, 'pulse');
+    animateCSS(id, 'bounce');
   }
 
   function ready() {
