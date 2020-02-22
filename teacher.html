@@ -19,6 +19,9 @@ All you have to do to get hints working is....
 
 * Next, you'll need to make the algorithm for automatically selecting the next word
 * Bet that takes an hour, then just a lot of tweaking to figure out the right way to do it
+* UPDATE: Done. Only took an hour or two. 
+
+* BUG: You need to fix this bug. You actually need to send the whole word to the student UI. Shit, that is not easy. You basically need to reconstruct words that have a grapheme like o-e. Super, duper not easy. Blah. Blah. Blah. Maybe not so bad. Just disable hints for those. Then all you have to do is reconstruct the word. Blah, tomorrow on that. 
 
 * After that, see if you can get voice recognition working.
 
@@ -27,6 +30,8 @@ All you have to do to get hints working is....
 * Then onto the game that's upstream of this one. 
 
 * Yeah, you've got a few weeks to get this done. But it's going to be sweet. Will make $10M this year on it. 
+
+
 
  -->
 
@@ -234,10 +239,10 @@ All you have to do to get hints working is....
   function gradeAnswer(correct) {
     if(correct) {
       pushMessage('correct');
-      setTimeout(pickWord, 2000, 1);
+      pickWord(1)
     } else {
       pushMessage('incorrect');
-      setTimeout(pickWord, 1500, 0);
+      pickWord(0)
     }
   }
 
