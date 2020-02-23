@@ -88,6 +88,13 @@ function updateWord() {
       gr = gr.split("-")[0]
       compound_grapheme_class = `position${i}`
     }
+
+    // check for the pattern 'o-e' followed by 'le' grapheme, as in 'mole'
+    // make sure it doesn't display as 'molee'
+    if( compound_grapheme && gr == "le") {
+      gr = "l"
+    }
+
     html = html + `<div style='display:inline-block' class="position${i}" phoneme="${ph}">${gr}</div>`
 
   })
