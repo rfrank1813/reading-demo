@@ -1,6 +1,10 @@
-# Run npm i 
-# node . 
-# Server will start on port 8080 
+# Instructions 
+
+Run npm i 
+
+node . 
+
+Server will start on port 8080 
 
 # Load the student side on a laptop by going to localhost:8080/student 
 # Because the browser won't allow remote triggered sounds, you need to click the button 

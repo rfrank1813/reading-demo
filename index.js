@@ -3,6 +3,7 @@ const app = express()
 const hostname = '0.0.0.0';
 const port = 8080;
 const WebSocket = require('ws'); 
+const fs = require('fs');
 app.use(express.urlencoded());
 
 
@@ -15,7 +16,7 @@ app.use(express.static('public'))
 
 
 app.get('/', (req,res) =>
-  res.sendFile('index.html', sendFileOptions))
+  res.sendFile("index.html", sendFileOptions))
 
 app.get('/student', (req, res) => 
   res.sendFile('student.html', sendFileOptions))
