@@ -24,6 +24,9 @@ app.get('/student', (req, res) =>
 app.get('/teacher', (req,res) =>
   res.sendFile('teacher.html', sendFileOptions))
 
+app.get('/letters', (req,res) =>
+  res.sendFile("letters.html", sendFileOptions))
+
 
 
 

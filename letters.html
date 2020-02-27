@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<head>
+  <title>Letters</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://static.classdojo.com/fonts/proxima/proximanova-default-stack.css"/>
+
+
+  <style>
+
+    body {
+      font-family: "proxima-nova";
+      color: #AAB0D8;
+      background: url(/gradient.png);
+      font-size: 100px;
+    }
+
+    .game-wrapper {
+      display: block; 
+      width: 100%; 
+      /*position: fixed; */
+      top: 0px; 
+      bottom: 0px; 
+    }
+
+    .gameplay-container {
+      width: 80%; 
+      margin: 10px auto;
+    }
+
+
+    .streak-tracker {
+      height: 60px;
+      position: absolute;
+      bottom: 0;
+      width: 50%;
+      left: 335px;
+    }
+
+    .streak-tracker-placeholder {
+      position: absolute; 
+      bottom: 0; 
+      width: 50%;
+      left: 335px; 
+      height: 60px; 
+    }
+
+    .empty-circle {
+      height: 54px;
+      width: 54px;
+      float: left;
+      margin-right: 11px;
+      background: #AAB0D8;
+      border-radius: 60px;
+      position: relative;
+      z-index: -1;
+      top: 3px;
+      left: 2px;
+    }
+
+    .streak-tracker img {
+      float: left; 
+      margin-right: 5px; 
+      width: 60px;
+      height: 60px;
+    }
+
+    .big-correct {
+      width: 300px;
+      height: 300px; 
+      position:relative;
+      top:50px;
+    }
+
+
+    .option, .target {
+      width: 100px;
+      display: inline-block;
+      text-align: center;
+    }
+
+
+    .option {
+      border: 2px solid green;
+      margin-right: 50px;
+    }
+
+    .target {
+      display: inline-block;
+      margin-right: 0px;
+      border-bottom: 3px solid red;
+      width: 100px;
+    }
+
+
+  </style>
+
+</head>
+
+
+<BODY>
+
+
+
+
+  <div class="game-wrapper">
+
+    <div class="gameplay-container">
+      
+      <div id="word">
+        <div position="0" class="target"></div>
+        <div position="1" class="target"></div>
+        <div position="2" class="target"></div>
+      </div>
+
+      <div class="options">
+      </div>
+
+      <div class="streak-tracker">
+        <!-- JS fills this with empty circles, then inserts smileys -->
+      </div>
+
+      <div class="streak-tracker-placeholder">
+        <div id="dragTest" class="empty-circle"></div>
+        <div class="empty-circle"></div>
+        <div class="empty-circle"></div>
+        <div class="empty-circle"></div>
+        <div class="empty-circle"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" type="text/javascript"></script>    
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
+
+  <script src="jquery.ui.touch-punch.min.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.js"></script>
+  <script src="/letters.js"></script>
+
+</BODY>
