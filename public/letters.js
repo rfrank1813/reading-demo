@@ -1,52 +1,10 @@
-// HANDLE WEBSOCKETS 
-
-var connection = new WebSocket('ws://'+location.hostname+':82'); 
-
-connection.onopen = function (e) { 
-  console.log("connected "+e); 
-}; 
-
-connection.onerror = function (error) { 
-  console.log('WebSocket Error ' + error); 
-}; 
-
-connection.onmessage = function (e) { 
-
-  window.e = e 
-  let msg= JSON.parse(e.data); 
-  console.log("MSG: ", msg);
-  window.msg = msg;
-
-  // Handle everything else 
-  switch(msg.action) {
-    case 'hint': 
-      position = msg.data;
-      doHint(position);
-      break; 
-    case 'correct':
-      playSound("/positive.mp3")
-      updateStreakTracker(1);
-      break;
-    case 'incorrect':
-      playSound("/wrong.mp3")
-      updateStreakTracker(-1)
-      break;
-    case 'word':
-
-      // updateWord function pulls from here
-      window.new_word = msg.data.gpcs
-
-      // on first word, show to user
-      // all other times, wait for updateWord to be called from elsewhere 
-      if( firstWord || msg.data.forceUpdate ) {
-        firstWord = false
-        updateWord() 
-      } else {
-        // do nothing
-      }
-  }
-} 
-
+// TODO 
+// I probably need to record nicer versions of the words
+// And maybe need to redo some phonemes 
+// Make sure the word gets read out loud when a new one comes in 
+// How to help when kid gets stuck? 
+// Like maybe after 2-3 tries, you bounce the correct first letter and play sound 
+// How to get a sense of when this game is complete? 
 
 function playSound(url) {
   var sound = new Howl({
@@ -55,19 +13,75 @@ function playSound(url) {
   sound.play();
 }
 
+function startGame() {
+  console.log("Start game called"); 
+  $(".initial-cover").remove();
+
+  updateWord()
+}
+
+// Read the word aloud 
+function readWord() {
+  path_to_file = "//primer-words.s3-us-west-2.amazonaws.com/"+window.word+".mp3";
+  playSound(path_to_file);
+}
+
+
+// Show reward 
+function showReward() {
+  $(".gameplay-container").hide() 
+
+  $(".reward-cover").show()
+
+  playSound("/fanfare.m4a")
+
+  setTimeout( function() {
+    $(".reward-cover").hide()
+    $(".gameplay-container").show()
+
+  }, 1000)
+}
+
+
+const curriculum = [
+  "cat", 
+  "bat", 
+  "fat",
+  "rat", 
+  "mat", 
+  "sat",
+  "sam",
+  "ram", 
+  "bam",
+  "dam",
+  "met",
+  "bet",
+  "set"
+]
+
 // Just puts the word in html. Another function displays it. 
 function updateWord() {
 
   // clear existing word
   $(".target").html("")
   $(".options").html("")
-  
-  msg = new_word; 
 
-  // Parse string to array 
-  gpcs = msg
 
-  
+  // Init word_index
+  if ( typeof(word_index) == "undefined" ) {
+    word_index = -1
+  }
+
+  // Increment the word index
+  word_index += 1 
+
+  // Get the new word
+  new_word = curriculum[word_index]
+
+  // Get the new word's GPCS 
+  gpcs = wordList[new_word]
+
+  console.log("GPCS: ", gpcs)  
 
   // Put each gpc of the word into a span 
   options = [];
@@ -96,38 +110,98 @@ function updateWord() {
     animateCSS('.option', 'zoomIn');
   });
 
+  draggableOptions = {
+    revert: function (event, ui) {
+      console.log("REVERT")
+
+
+      // Stop saying the phoneme
+      clearInterval(window.phonemeInterval)
+
+      // Target position
+      targetPosition = $(event).attr('position')
+
+      // Option position 
+      optionPosition = this.attr("position")
+
+      // Check for match 
+      if( optionPosition == targetPosition ) {
+        playSound("/positive.mp3")
+        this.draggable("disable")
+
+        // Slide element into place 
+        $(this).remove()
+        $(event).append(this)
+        $(this).css({top: "-0.2em", left: 0})
+
+        // If the word is complete, get a new word 
+        if ( $('.target').children().length == 3 ) {
+          showReward()
+
+          setTimeout(updateWord, 2500);
+        }
+
+        return false 
+      } else {
+        playSound("/wrong.mp3")
+
+        // Read the word 
+        setTimeout(readWord, 500); 
+
+        // Think about reading out each phoneme in turn here 
+
+        return true 
+      }
+    },
+    start: function (event, ui) {
+
+      // Get the phoneme 
+      phoneme = event.srcElement.getAttribute("phoneme")
+
+      // Play the phoneme sound once to avoid delay on first play coming from setInterval
+      playSound(`/phonemes/${phoneme}.mp3`)
+
+      // Play the phoneme while being dragged 
+      window.phonemeInterval = setInterval( function() {
+        playSound(`/phonemes/${phoneme}.mp3`)
+      }, 500);
+    },
+    stop: function (event, ui) {
+      console.log("Drag stop!")
+      clearInterval(window.phonemeInterval)
+    }
+  }
 
   // Make each option drag/droppable 
-  $(".option").draggable({
-    revert: "invalid"
-  })
+  $(".option").draggable( draggableOptions )
 
-
-  $(".target").droppable({
+  droppableOptions = {
+    hoverClass: "drop-target-active",
     accept: ".option"
-  })
+  }
+
+  $(".target").droppable( droppableOptions )
+
+
+  // Play the entire word 
+  window.word = new_word 
+  readWord()
+  
+
 
   // HOW TO DO THE DRAG / DROP THING 
-  // RULES 
 
-  // You need to handle the event during drag 
+  // DONE -- And you need to properly tag the targets and options 
 
-  // And you need to properly tag the targets and options 
+  // D0NE - When being dragged, repeat the phoneme sound 
 
-  // When being dragged, repeat the phoneme sound 
+  // DONE -- When hovering over the target, highlight the target 
 
-  // When hovering over the target, highlight the target 
+  // DONE - If dropped on wrong target, make a sound and return to it's space
 
-  // If dropped on wrong target, 
-  // make a sound
-  // and return to it's space 
+  // DONE - If dropped on the right target, make a positive sound and snap to place 
 
-  // If dropped on the right target, 
-  // make a positive sound 
-  // and snap to place 
-
-  // If dropped on not a target,
-  // Just return to original place 
+  // DONE -- If dropped on not a target, Just return to original place 
 
   // If the word is now complete,
   // trigger smiley
@@ -135,115 +209,6 @@ function updateWord() {
 
   
 
-}
-
-function updateStreakTracker(direction) {
-
-  // Clear the word 
-  $(".target").html("")
-
-  if(direction == 1) {
-    // Add a smiley 
-    $('.streak-tracker').append("<img class='tracker-smiley' src='/happy.png'/>")
-
-    animateCSS("img:last-child", "tada", function() {
-    
-      // If 5 smileys, clear the tracker 
-      smileys = $(".streak-tracker").children().length
-      if(smileys >= 5) {
-        updateProgressBar(1)
-      } else {
-        updateWord()
-      }
-    })
-  }
-
-  if(direction == -1) {
-
-    // Add a sad face 
-    $('.streak-tracker').append("<img src='/dead.png'/>")
-
-    // Wait a tick
-    setTimeout(function() {
-
-      // Clear the streak tracker
-      animateCSS(".streak-tracker", "shake", function() {
-        $(".streak-tracker").children().remove()
-
-        // Update progress bar 
-        updateProgressBar(-1)
-      });
-    }, 1000);
-  }
-}
-
-
-function updateProgressBar(direction) {
-
-  // play a sound
-  if(direction > 0) {
-    playSound("/fanfare.m4a")
-  } else {
-    // do nothing
-  }
-  
-
-  // Hide the word
-  $("#word").html()
-
-  // get screen width 
-  screen_width = $(".progress-tracker").width() 
-
-  // use screen width to determine pixel width of increment 
-  section_width = Math.floor( screen_width / 20 ); 
-
-  // multiply by direction, either 1 or -1 
-  increment = section_width * direction 
-
-  // get current progress bar width 
-  current_width = $(".progress-tracker-inner").width() 
-
-  // add result to progress bar width
-  new_width = increment + current_width
-
-  // set width to 0 if calculated width is less than 0
-  if (new_width < 0) {
-    new_width = 0;
-  }
-
-  // Empty streak tracker
-  setTimeout(function(){
-    $(".streak-tracker").children().remove()
-
-    // update progress bar width
-    animateCSS(".progress-tracker", "pulse", function() {
-      $(".progress-tracker-inner").width(new_width);
-      setTimeout(updateWord, 500)
-    })
-  }, 1000)
-
-  
-  
-} 
-
-function doHint(position) {
-  selector = `.position${position}`
-
-  phoneme = $(selector).first().attr("phoneme")
-
-  // Play the sound
-  var sound = new Howl({
-    src: ["/phonemes/"+phoneme+".mp3"]
-  });
-  sound.play();
-
-  // Pulse the letters
-  animateCSS(selector, 'bounce');
-}
-
-function ready() {
-  $(".go-button").hide()
-  $("#word").html("wait...");
 }
 
 
@@ -267,9 +232,7 @@ function animateCSS(selector, animationName, callback) {
   
 }
 
-$(document).ready(function() {
-  firstWord = true
 
-  window.new_word = ['c~k', 'a~ae', 't~t'];
-  updateWord()
+$(document).ready(function() {
+  // Nothing here
 });

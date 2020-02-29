@@ -24,72 +24,75 @@
 
     .gameplay-container {
       width: 80%; 
-      margin: 10px auto;
-    }
-
-
-    .streak-tracker {
-      height: 60px;
-      position: absolute;
-      bottom: 0;
-      width: 50%;
-      left: 335px;
-    }
-
-    .streak-tracker-placeholder {
-      position: absolute; 
-      bottom: 0; 
-      width: 50%;
-      left: 335px; 
-      height: 60px; 
-    }
-
-    .empty-circle {
-      height: 54px;
-      width: 54px;
-      float: left;
-      margin-right: 11px;
-      background: #AAB0D8;
-      border-radius: 60px;
-      position: relative;
-      z-index: -1;
-      top: 3px;
-      left: 2px;
-    }
-
-    .streak-tracker img {
-      float: left; 
-      margin-right: 5px; 
-      width: 60px;
-      height: 60px;
-    }
-
-    .big-correct {
-      width: 300px;
-      height: 300px; 
-      position:relative;
-      top:50px;
+      margin: 400px auto;
+      text-align:center;
     }
 
 
     .option, .target {
-      width: 100px;
+      width: 200px;
+      height: 200px;
       display: inline-block;
       text-align: center;
-    }
+      border-radius: 9px;
+      font-size: 240px;
+      line-height: 1em;
 
-
-    .option {
-      border: 2px solid green;
-      margin-right: 50px;
     }
 
     .target {
-      display: inline-block;
-      margin-right: 0px;
-      border-bottom: 3px solid red;
-      width: 100px;
+      border: 3px solid #AAB0D8;
     }
+
+
+    .drop-target-active {
+      background: black;
+    }
+
+    .initial-cover {
+      position: fixed; 
+      z-index: 10;
+      background: url(/gradient.png);
+      top: 0;
+      left: 0;
+      width: 100%;
+      bottom: 0;
+    }
+
+    .initial-cover button {
+      font-size: 300px;
+      text-align: center;
+      width: 80%;
+      margin: auto;
+      border: 1px solid #1a1a1a;
+      display: block;
+      margin-top: 500px;
+      padding: 50px 100px;
+      border-radius: 13px;
+  }
+
+
+    }
+
+    .megaphone {
+      text-align: center;
+    }
+
+    .reward-cover {
+      display: none;
+      position: fixed;
+      width: 100%;
+      text-align: center;
+      margin-top: 400px;
+    }
+
+    .big-correct {
+      width: 500px;
+      height: 500px; 
+      position:relative;
+      top:50px;
+    }
+
 
 
   </style>
@@ -99,12 +102,23 @@
 
 <BODY>
 
+  <div class="initial-cover">
+    <button onclick="startGame()">Go!</button>
+  </div>
 
+
+  <div class="reward-cover">
+    <img src="/happy.png" class="big-correct" />
+  </div>
 
 
   <div class="game-wrapper">
 
     <div class="gameplay-container">
+
+      <div onclick="readWord()" class="megaphone">
+        <img src="/megaphone.png" />
+      </div>
       
       <div id="word">
         <div position="0" class="target"></div>
@@ -115,19 +129,6 @@
       <div class="options">
       </div>
 
-      <div class="streak-tracker">
-        <!-- JS fills this with empty circles, then inserts smileys -->
-      </div>
-
-      <div class="streak-tracker-placeholder">
-        <div id="dragTest" class="empty-circle"></div>
-        <div class="empty-circle"></div>
-        <div class="empty-circle"></div>
-        <div class="empty-circle"></div>
-        <div class="empty-circle"></div>
-      </div>
-    </div>
-
   </div>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" type="text/javascript"></script>    
@@ -137,6 +138,8 @@
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.js"></script>
+
+  <script src="/words_curriculum.js"></script>
   <script src="/letters.js"></script>
 
 </BODY>
