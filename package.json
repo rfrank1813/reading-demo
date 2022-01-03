@@ -9,7 +9,7 @@
   "dependencies": {
     "csv-parser": "^2.3.2",
     "express": "^4.16.4",
-    "fast-csv": "^2.5.0",
+    "fast-csv": "^4.3.6",
     "fs": "0.0.1-security",
     "howler": "^2.1.2",
     "python-shell": "^1.0.7",
