@@ -126,7 +126,8 @@ function pickWord(correct) {
   min_index = Math.floor( num_words * (percentile - 5) / 100 ) 
 
   // pick randomly from within that index 
-  next_word_index = randomIntFromInterval(min_index, max_index)
+  // next_word_index = randomIntFromInterval(min_index, max_index)
+  next_word_index = min_index + 1; 
 
   word = Object.keys(wordList)[next_word_index];
   
