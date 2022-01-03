@@ -206,6 +206,10 @@ function doHint(position) {
 function ready() {
   $(".go-button").hide()
   $("#word").html("wait...");
+
+  // Start the countdown timer 
+  timer = 60; 
+  countdownTimer = setInterval(updateCountdown, 1000);
 }
 
 
@@ -225,9 +229,7 @@ function setup() {
 
   num_correct = 0;
 
-  // Set the countdown timer 
-  timer = 60; 
-  countdownTimer = setInterval(updateCountdown, 1000);
+
 
   // fetch the right data for the buttons
   // add a db entry for id 0 on start state
