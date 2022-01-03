@@ -59,6 +59,7 @@ function playSound(url) {
 function updateWord() {
   
   msg = new_word; 
+  console.log("Updating word to : ", new_word); 
 
   // Parse string to array 
   gpcs = msg
@@ -135,58 +136,12 @@ function updateStreakTracker(direction) {
 
 
   // Put in a new word
-  updateWord(); 
+  setTimeout(updateWord, 500); 
 
 }
 
 
-function updateProgressBar(direction) {
 
-  // play a sound
-  if(direction > 0) {
-    playSound("/fanfare.m4a")
-  } else {
-    // do nothing
-  }
-  
-
-  // Hide the word
-  $("#word").html()
-
-  // get screen width 
-  screen_width = $(".progress-tracker").width() 
-
-  // use screen width to determine pixel width of increment 
-  section_width = Math.floor( screen_width / 20 ); 
-
-  // multiply by direction, either 1 or -1 
-  increment = section_width * direction 
-
-  // get current progress bar width 
-  current_width = $(".progress-tracker-inner").width() 
-
-  // add result to progress bar width
-  new_width = increment + current_width
-
-  // set width to 0 if calculated width is less than 0
-  if (new_width < 0) {
-    new_width = 0;
-  }
-
-  // Empty streak tracker
-  setTimeout(function(){
-    $(".streak-tracker").children().remove()
-
-    // update progress bar width
-    animateCSS(".progress-tracker", "pulse", function() {
-      $(".progress-tracker-inner").width(new_width);
-      setTimeout(updateWord, 500)
-    })
-  }, 1000)
-
-  
-  
-} 
 
 function doHint(position) {
   selector = `.position${position}`
@@ -203,6 +158,8 @@ function doHint(position) {
   animateCSS(selector, 'bounce');
 }
 
+
+// This is called when the start button is clicked 
 function ready() {
   $(".go-button").hide()
   $("#word").html("wait...");
@@ -213,6 +170,7 @@ function ready() {
 }
 
 
+// Make the countdown timer work 
 function updateCountdown() {
   timer = timer - 1; 
 
@@ -224,33 +182,9 @@ function updateCountdown() {
 }
 
 
-// displayButtons function
-function setup() {
-
-  num_correct = 0;
 
 
-
-  // fetch the right data for the buttons
-  // add a db entry for id 0 on start state
-  // $.ajax({
-  //   url: "/get_word",
-  //   type: "GET",
-  //   success: function(data) {
-
-  //     window.data = data;
-
-  //     if(data.length==0) {
-  //       alert("No data!"); 
-  //     } 
-
-  //     $("#word").html(data.word);
-  //   }
-  // });
-
-}
-
-
+// Makes the CSS animations work. This is boilerplate. 
 function animateCSS(selector, animationName, callback) {
   
   nodes = $(selector)
@@ -272,6 +206,6 @@ function animateCSS(selector, animationName, callback) {
 }
 
 $(document).ready(function() {
-  setup();
+  num_correct = 0;
   firstWord = true
 });
