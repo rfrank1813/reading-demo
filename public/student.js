@@ -226,7 +226,7 @@ function setup() {
   num_correct = 0;
 
   // Set the countdown timer 
-  timer = 10; 
+  timer = 60; 
   countdownTimer = setInterval(updateCountdown, 1000);
 
   // fetch the right data for the buttons
