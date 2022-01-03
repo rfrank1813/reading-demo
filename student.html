@@ -15,6 +15,7 @@
     body {
       font-family: "proxima-nova";
       background: url(/gradient.png);
+      color: #AAB0D8;
     }
 
     h1 {
@@ -45,14 +46,13 @@
     }
 
     .progress-tracker {
-      right: 0;
       height: 15px;
       background: #AAB0D8;
       width: 50%;
       position: relative;
-      left: 300px;
       top: 30px;
       border-radius: 32px;
+      margin: auto;
     }
 
     .progress-tracker-inner {
@@ -61,22 +61,6 @@
       width: 0%; 
       background: #0ab311;
       border-radius: 32px 0 0 32px;
-    }
-
-    .streak-tracker {
-      height: 60px;
-      position: absolute;
-      bottom: 0;
-      width: 50%;
-      left: 335px;
-    }
-
-    .streak-tracker-placeholder {
-      position: absolute; 
-      bottom: 0; 
-      width: 50%;
-      left: 335px; 
-      height: 60px; 
     }
 
     .empty-circle {
@@ -92,12 +76,7 @@
       left: 2px;
     }
 
-    .streak-tracker img {
-      float: left; 
-      margin-right: 5px; 
-      width: 60px;
-      height: 60px;
-    }
+
 
     .big-correct {
       width: 300px;
@@ -112,16 +91,39 @@
     }
 
     .go-button {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      width: 100%;
+      width: 50%;
       font-size: 300px;
-      border-radius: 16px;
-      box-shadow: 1px 2px 1px #1a1a1a;
-      cursor: pointer; 
+      border-radius: 300px;
+      cursor: pointer;
+      color: inherit;
+      background: none;
+      border: 2px solid white;
+      margin: auto;
+      display: block;
+    }
+
+    .scoreboard-positioner {
+      position:  absolute;
+      left:  0;
+      right:  0; 
+      bottom:  0;
+      height:  200px;
+    }
+    .scoreboard {
+      font-size:  100px;
+      width:  300px;
+      margin: auto; 
+    }
+
+    .scoreboard-smiley {
+      position:  relative;
+      top:  20px;
+    }
+
+    .game-clock {
+      float:  right; 
+      font-size:  200px;
+      margin:  20px;
     }
 
   </style>
@@ -132,6 +134,12 @@
 <BODY>
 
   <div class="game-wrapper">
+
+    <div id="timer" class="game-clock">
+      60
+    </div>
+
+
     <div class="progress-tracker">
       <!-- JS fills this with 1 div for each level -->
       <div class="progress-tracker-inner"></div>
@@ -139,22 +147,18 @@
 
     <div class="gameplay-container">
 
-      <button class='go-button' onclick="ready()">Go!</button>
+      <button class='go-button' onclick="ready()">Start</button>
       
       <h1 id="word">
           <!-- filled with the word by JS  -->
       </h1>
+    </div>
 
-      <div class="streak-tracker">
-        <!-- JS fills this with empty circles, then inserts smileys -->
-      </div>
-
-      <div class="streak-tracker-placeholder">
-        <div class="empty-circle"></div>
-        <div class="empty-circle"></div>
-        <div class="empty-circle"></div>
-        <div class="empty-circle"></div>
-        <div class="empty-circle"></div>
+    <div class="scoreboard-positioner">
+      <div class="scoreboard">
+        <img width="100px" class='scoreboard-smiley' src='/happy.png'/>
+        x
+        <span id="score-counter">0</span>
       </div>
     </div>
 

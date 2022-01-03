@@ -124,42 +124,19 @@ function updateWord() {
 
 function updateStreakTracker(direction) {
 
+  // Update score counter 
+  num_correct = num_correct + direction; 
+  $("#score-counter").html(num_correct);
+
+
+
   // Clear the word 
   $("#word").html("")
 
-  if(direction == 1) {
-    // Add a smiley 
-    $('.streak-tracker').append("<img class='tracker-smiley' src='/happy.png'/>")
 
-    animateCSS("img:last-child", "tada", function() {
-    
-      // If 5 smileys, clear the tracker 
-      smileys = $(".streak-tracker").children().length
-      if(smileys >= 5) {
-        updateProgressBar(1)
-      } else {
-        updateWord()
-      }
-    })
-  }
+  // Put in a new word
+  updateWord(); 
 
-  if(direction == -1) {
-
-    // Add a sad face 
-    $('.streak-tracker').append("<img src='/dead.png'/>")
-
-    // Wait a tick
-    setTimeout(function() {
-
-      // Clear the streak tracker
-      animateCSS(".streak-tracker", "shake", function() {
-        $(".streak-tracker").children().remove()
-
-        // Update progress bar 
-        updateProgressBar(-1)
-      });
-    }, 1000);
-  }
 }
 
 
@@ -231,8 +208,26 @@ function ready() {
   $("#word").html("wait...");
 }
 
+
+function updateCountdown() {
+  timer = timer - 1; 
+
+  if(timer == 0) {
+    clearInterval(countdownTimer);
+    alert(`Game over. You got: ${num_correct} `); 
+  }
+  $("#timer").html(String(timer)); 
+}
+
+
 // displayButtons function
 function setup() {
+
+  num_correct = 0;
+
+  // Set the countdown timer 
+  timer = 10; 
+  countdownTimer = setInterval(updateCountdown, 1000);
 
   // fetch the right data for the buttons
   // add a db entry for id 0 on start state
