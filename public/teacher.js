@@ -34,7 +34,6 @@ function updateWord (word, forceUpdate=false) {
   gpcs = wordList[word];
   phonemes = gpcs.map(x => x.split("~")[1]);
   graphemes = gpcs.map(x => x.split("~")[0]); 
-  console.log("phonemes: ", phonemes);
 
   html = "";
   phonemes.forEach( function(ph,i) {
@@ -49,7 +48,6 @@ function updateWord (word, forceUpdate=false) {
 
 
   // send the word via pushMessage
-  console.log(gpcs);
   window.gpcs = gpcs;
   pushMessage("word", {gpcs: gpcs, forceUpdate: forceUpdate});
 }
@@ -126,24 +124,35 @@ function pickWord(correct) {
   min_index = Math.floor( num_words * (percentile - 5) / 100 ) 
 
   // pick randomly from within that index 
-  // next_word_index = randomIntFromInterval(min_index, max_index)
-  next_word_index = min_index + 1; 
+  // word_index = randomIntFromInterval(min_index, max_index)
+  word_index = word_index + 1; 
 
-  word = Object.keys(wordList)[next_word_index];
+
+  word = Object.keys(wordList)[word_index];
   
   console.log("Percentile: ", percentile); 
   console.log("Streak: ", streak); 
-  console.log("Index:", next_word_index);
+  console.log("Index:", word_index);
   console.log("word: ", word);
 
   // set that word as the current word 
   updateWord( word )
 }
 
+function getIndexOfWord(word_to_find) {
+  arr = [];
+  for(var word in wordList) {
+    arr.push(word); 
+  }
+  return arr.indexOf(word_to_find);
+}
+
 
 function setup() {
 
   words = Object.keys(wordList); 
+
+  word_index = 0; 
 
 
   words.forEach(function(word) {
@@ -153,7 +162,11 @@ function setup() {
 
 
   $( "#wordList li" ).click(function() {
-    word = $(this).text(); 
+    var word = $(this).text(); 
+
+    word_index = getIndexOfWord(word); 
+    console.log("New word index: ", word_index);
+
     console.log(word);
     updateWord(word, true);
   });
