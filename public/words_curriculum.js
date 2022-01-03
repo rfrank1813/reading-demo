@@ -1,7 +1,5 @@
 wordList = {
-  'act' : ['a~ae', 'c~k', 't~t'],
   'cat' : ['c~k', 'a~ae', 't~t'],
-  'sal' : ['s~s', 'a~ae', 'l~l'],
   'sat' : ['s~s', 'a~ae', 't~t'],
   'rat' : ['r~r', 'a~ae', 't~t'],
   'tat' : ['t~t', 'a~ae', 't~t'],
