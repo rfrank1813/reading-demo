@@ -1,10 +1,48 @@
-wordList = {
+// This is the lookup table for a word or letter and its grapheme phoneme correspondences. 
+dictionary = {
+  
+  'a' : ['a~ae'],
+  't' : ['t~t'],
+  'at' : ['a~ae', 't~t'],
+
+
+  'm' : ['m~m'],
+  'at' : ['a~ae', 't~t'],
+  'mat' : ['m~m', 'a~ae', 't~t'],
+
+  'c' : ['c~k'],
+  'at' : ['a~ae', 't~t'],
+  'cat' : ['c~k', 'a~ae', 't~t'],
+
+  's' : ['s~s'],
+  'at' : ['a~ae', 't~t'], 
+  'sat' : ['s~s', 'a~ae', 't~t'],
+
+
+  'r' : ['r~r'],
+  'at' : ['a~ae', 't~t'],
+  'rat' : ['r~r', 'a~ae', 't~t'],
+
+  'b' : ['b~b'],
+  'at' : ['a~ae', 't~t'],
+  'bat' : ['b~b', 'a~ae', 't~t'],
+
+
+  'f' : ['f~f'],
+  'at' : ['a~ae', 't~t'],
+  'fat' : ['f~f', 'a~ae', 't~t'],
+
+
+  'p' : ['p~p'],
+  'at' : ['a~ae', 't~t'],
+  'pat' : ['p~p', 'a~ae', 't~t'],
+
+
   'mat' : ['m~m', 'a~ae', 't~t'],
   'cat' : ['c~k', 'a~ae', 't~t'],
   'sat' : ['s~s', 'a~ae', 't~t'],
   'rat' : ['r~r', 'a~ae', 't~t'],
   'fat' : ['f~f', 'a~ae', 't~t'],
-  'bat' : ['b~b', 'a~ae', 't~t'],
   'pat' : ['p~p', 'a~ae', 't~t'],
   
   'sam' : ['s~s', 'a~ae', 'm~m'],

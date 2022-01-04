@@ -150,7 +150,7 @@ function doHint(position) {
 
   // Play the sound
   var sound = new Howl({
-    src: ["/phonemes/"+phoneme+".mp3"]
+    src: ["/phonemes-wav/"+phoneme+".wav"]
   });
   sound.play();
 

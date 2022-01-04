@@ -1,3 +1,8 @@
+// Some global variables -- Imported from files of the same name. 
+dictionary = dictionary // The lookup table for words and their GPCs
+curriculum = curriculum // The ordered array of words and letters that make up the curriculum 
+
+
 
 // All my websocket stuff 
 var connection = new WebSocket('ws://'+location.hostname+':82'); 
@@ -12,7 +17,7 @@ connection.onerror = function (error) {
 
 // Does nothing for now. 
 connection.onmessage = function (e) { 
-  console.log(e);
+  // console.log(e);
   // let obj=JSON.parse(e.data); 
   // console.log(obj);
 };
@@ -31,7 +36,7 @@ function pushMessage(action, data={}) {
 function updateWord (word, forceUpdate=false) {
   
   // update the hint container 
-  gpcs = wordList[word];
+  gpcs = dictionary[word];
   phonemes = gpcs.map(x => x.split("~")[1]);
   graphemes = gpcs.map(x => x.split("~")[0]); 
 
@@ -57,117 +62,48 @@ function sendHint(position) {
   pushMessage("hint", position);
 }
 
-
-function randomIntFromInterval(min, max) { // min and max included 
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-
 // Grade answer 
 function gradeAnswer(correct) {
   if(correct) {
     pushMessage('correct');
-    pickWord(1)
   } else {
     pushMessage('incorrect');
-    pickWord(0)
   }
+  pickWord(); 
 }
 
 
 // Pick new word and send to student 
-function pickWord(correct) {
+function pickWord() {
 
-  // set percentile if not set 
-  if (typeof percentile === 'undefined') {
-    percentile = 5; 
-  }
-
-
-  // start a streak counter if one not set 
-  if (typeof streak === 'undefined') {
-    streak = 0; 
-  }
-
-  // if correct, increment the streak. otherwise, reset streak and jump down a percentile level
-  if (correct) {
-    streak++; 
-  } else {
-    streak = 0;
-    percentile -= 5;
-  }
-
-  // tell them when they've won  
-  if (percentile == 100 && streak >=6) {
-    alert("You beat the game!");  
-  }
-
-  // if streak over 5, increment percentile by 5 and reset streak 
-  if(streak >=6) {
-    percentile += 5;
-    streak = 0;
-  }
-
-  // make sure percentile is positive 
-  if (percentile < 5) {
-    percentile = 5; 
-  }
-
-  // make sure percentile is not over 100 
-  if (percentile > 100) {
-    percentile = 100; 
-  }
-
-  // Get max and min index in wordList based on percentile 
-  num_words = Object.keys(wordList).length
-  max_index = Math.floor( num_words * (percentile/100) ) - 1
-  min_index = Math.floor( num_words * (percentile - 5) / 100 ) 
-
-  // pick randomly from within that index 
-  // word_index = randomIntFromInterval(min_index, max_index)
+  // Advance through the list 
   word_index = word_index + 1; 
 
+  // Get the word by its position in the curriculum
+  word_from_dictionary = curriculum[word_index]; 
 
-  word = Object.keys(wordList)[word_index];
-  
-  console.log("Percentile: ", percentile); 
-  console.log("Streak: ", streak); 
-  console.log("Index:", word_index);
-  console.log("word: ", word);
 
   // set that word as the current word 
-  updateWord( word )
-}
-
-function getIndexOfWord(word_to_find) {
-  arr = [];
-  for(var word in wordList) {
-    arr.push(word); 
-  }
-  return arr.indexOf(word_to_find);
+  updateWord( word_from_dictionary )
 }
 
 
 function setup() {
 
-  words = Object.keys(wordList); 
-
+  // Start at the first word in the list 
   word_index = 0; 
 
 
-  words.forEach(function(word) {
+  // Write the list of words to the page
+  curriculum.forEach(function(word) {
     el = $("<li>" + word + "</li>" );
     $("#wordList").append( el );
   });
 
 
+  // Add click handlers to the words 
   $( "#wordList li" ).click(function() {
     var word = $(this).text(); 
-
-    word_index = getIndexOfWord(word); 
-    console.log("New word index: ", word_index);
-
-    console.log(word);
     updateWord(word, true);
   });
 
