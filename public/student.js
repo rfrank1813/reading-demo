@@ -131,7 +131,7 @@ function updateStreakTracker(direction) {
 
 
   // Add time to the timer when milestones are reached 
-  if(num_correct == 20) {
+  if(num_correct%10 == 0) {
     timer += 30;
   }
 
@@ -171,7 +171,7 @@ function ready() {
   $("#word").html("wait...");
 
   // Start the countdown timer 
-  timer = 60; 
+  timer = 30; 
   countdownTimer = setInterval(updateCountdown, 1000);
 }
 
@@ -182,7 +182,7 @@ function updateCountdown() {
 
   if(timer == 0) {
     clearInterval(countdownTimer);
-    alert(`Game over. You got: ${num_correct} `); 
+    alert(`Score: ${num_correct} `); 
   }
   $("#timer").html(String(timer)); 
 }

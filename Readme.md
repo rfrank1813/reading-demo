@@ -15,5 +15,8 @@ Server will start on port 8080
 # Tap a word from the list to give it as an exercise to the student 
 # Words get harder as you scroll down 
 
-
+# SSH into the Digital Ocean droplet with... 
+# ssh root@142.93.22.244  
+# in the terminal 
+# password 'chrisman'
 
