@@ -63,8 +63,28 @@ curriculum = [
 
   'sad',
   'dad',
+  'bad',
   'fad',
-  'pad'
+  'pad',
+  'tad',
+
+  'i',
+  't',
+  'it',
+
+  'b',
+  'it',
+  'bit', 
+
+  'fit',
+  'wit',
+
+  'big',
+  'fig',
+  'rig',
+  'wig',
+  'jig'
+
 ]
 
   

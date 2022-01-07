@@ -130,6 +130,12 @@ function updateStreakTracker(direction) {
   $("#score-counter").html(num_correct);
 
 
+  // Add time to the timer when milestones are reached 
+  if(num_correct == 20) {
+    timer += 30;
+  }
+
+
 
   // Clear the word 
   $("#word").html("")
