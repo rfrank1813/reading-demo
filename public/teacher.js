@@ -32,11 +32,17 @@ function pushMessage(action, data={}) {
   connection.send(str); 
 };
 
-// Update word 
+// Send the next word to the student 
 function updateWord (word, forceUpdate=false) {
   
   // update the hint container 
   gpcs = dictionary[word];
+
+  // If word not in dictionary, do an alert
+  if (typeof(gpcs) == "undefined") {
+    alert("${word} is not in the dictionary."); 
+  }
+
   phonemes = gpcs.map(x => x.split("~")[1]);
   graphemes = gpcs.map(x => x.split("~")[0]); 
 

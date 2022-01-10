@@ -5,6 +5,9 @@ dictionary = {
   't' : ['t~t'],
   'at' : ['a~ae', 't~t'],
 
+  'am' : ['a~ae', 'm~m'],
+  'ad' : ['a~ae', 'd~d'],
+
 
   'm' : ['m~m'],
   'at' : ['a~ae', 't~t'],
