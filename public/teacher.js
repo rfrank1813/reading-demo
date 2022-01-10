@@ -40,7 +40,7 @@ function updateWord (word, forceUpdate=false) {
 
   // If word not in dictionary, do an alert
   if (typeof(gpcs) == "undefined") {
-    alert("${word} is not in the dictionary."); 
+    alert(`${word} is not in the dictionary.`); 
   }
 
   phonemes = gpcs.map(x => x.split("~")[1]);

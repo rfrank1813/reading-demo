@@ -7,6 +7,8 @@ dictionary = {
 
   'am' : ['a~ae', 'm~m'],
   'ad' : ['a~ae', 'd~d'],
+  'it' : ['i~ih', 't~t'],
+
 
 
   'm' : ['m~m'],
