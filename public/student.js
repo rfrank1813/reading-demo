@@ -132,7 +132,7 @@ function updateStreakTracker(direction) {
 
   // Add time to the timer when milestones are reached 
   if(num_correct%7 == 0) {
-    timer = 30;
+    timer += 30;
   }
 
 
@@ -171,7 +171,7 @@ function ready() {
   $("#word").html("wait...");
 
   // Start the countdown timer 
-  timer = 25; 
+  timer = 300; 
   countdownTimer = setInterval(updateCountdown, 1000);
 }
 

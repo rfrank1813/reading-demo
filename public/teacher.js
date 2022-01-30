@@ -4,8 +4,13 @@ var curriculum = readingCurriculum; // The ordered array of words and letters th
 
 
 // Some setup variables 
+var superset_mode = 1; 
 var set_index = 0; 
-var currentSet = curriculum[set_index];
+if (superset_mode) {
+  currentSet = curriculum;
+} else {
+  currentSet = curriculum[set_index];
+}
 var score = 0; 
 
 
@@ -90,13 +95,13 @@ function gradeAnswer(correct) {
 
 
 
-
 // Update user's score 
 // Update set if needed 
 function updateScore(increment) {
   score = score + increment; 
 
   if (score % 7 == 0 && increment > 0) {
+    if(superset_mode) { return; }
     set_index++;
     currentSet = curriculum[set_index];
   }
@@ -110,6 +115,7 @@ function pickWord() {
   // If currentSet is empty, refill the set. 
   // This prevents recycling the same word over and over 
   if (currentSet.length == 0) {
+    if(superset_mode) { return; }
     currentSet = curriculum[set_index];
   }
 

@@ -42,19 +42,21 @@ var o_vowel_words = ['sob', 'not', 'nod', 'bob', 'rob', 'rod', 'cop', 'cot', 'co
 var u_vowel_words = ['cut', 'cup', 'mud', 'pup', 'tub', 'bus', 'bud', 'but', 'dud']
 
 
+var superset = []; 
+
+superset = two_letter_words.concat(at_words, am_words, ap_ab_words, e_vowel_words, i_vowel_words, o_vowel_words, u_vowel_words); 
 
 
-var superset = at_words + am_words + ad_words + ap_ab_words + e_vowel_words + i_vowel_words + o_vowel_words + u_vowel_words; 
 
+// readingCurriculum = [
+//   long_consonants, short_consonants_1, 
+//   two_letter_words, 
+//   at_words, am_words, ad_words, ap_ab_words, e_vowel_words, i_vowel_words,
+//   o_vowel_words,
+//   u_vowel_words,
+//   superset
+// ]
 
-readingCurriculum = [
-  long_consonants, short_consonants_1, 
-  two_letter_words, 
-  at_words, am_words, ad_words, ap_ab_words, e_vowel_words, i_vowel_words,
-  o_vowel_words,
-  u_vowel_words,
-  superset
-]
-
+readingCurriculum = superset;
 
 
