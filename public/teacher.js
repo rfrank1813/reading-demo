@@ -40,7 +40,7 @@ function pushMessage(action, data={}) {
 
 function sendWordToStudent (word, forceUpdate=false) {
   
-  // update the hint container 
+  // Lookup word in dictionary to get the GPCs
   gpcs = dictionary[word];
 
   // If word not in dictionary, do an alert
@@ -107,15 +107,22 @@ function updateScore(increment) {
 // Pick new word
 function pickWord() {
 
+  // If currentSet is empty, refill the set. 
+  // This prevents recycling the same word over and over 
+  if (currentSet.length == 0) {
+    currentSet = curriculum[set_index];
+  }
+
+
   // Pick a random word from the set 
   var word = currentSet[Math.floor(Math.random()*currentSet.length)];
 
-  // Now find that word in the dictionary 
-  word_from_dictionary = word; 
+
+  // Remove that word from the set so we don't keep giving the same word
+  currentSet = currentSet.filter(e => e !== word);
 
 
-  // Send that word to the student
-  sendWordToStudent( word_from_dictionary );
+  sendWordToStudent( word );
 }
 
 
@@ -141,11 +148,6 @@ function setup() {
   
 }
 
-
-// load the sets 
-// pick the set -- word index will become set index 
-// logic for when the set completes 
-// now cycle randomly in the set 
 
 
 

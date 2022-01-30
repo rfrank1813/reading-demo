@@ -171,7 +171,7 @@ function ready() {
   $("#word").html("wait...");
 
   // Start the countdown timer 
-  timer = 20; 
+  timer = 25; 
   countdownTimer = setInterval(updateCountdown, 1000);
 }
 
