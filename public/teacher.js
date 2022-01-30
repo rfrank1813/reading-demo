@@ -1,7 +1,12 @@
 // Some global variables -- Imported from files of the same name. 
-dictionary = dictionary // The lookup table for words and their GPCs
-curriculum = curriculum // The ordered array of words and letters that make up the curriculum 
+var dictionary = dictionary; // The lookup table for words and their GPCs
+var curriculum = readingCurriculum; // The ordered array of words and letters that make up the curriculum 
 
+
+// Some setup variables 
+var set_index = 0; 
+var currentSet = curriculum[set_index];
+var score = 0; 
 
 
 // All my websocket stuff 
@@ -32,8 +37,8 @@ function pushMessage(action, data={}) {
   connection.send(str); 
 };
 
-// Send the next word to the student 
-function updateWord (word, forceUpdate=false) {
+
+function sendWordToStudent (word, forceUpdate=false) {
   
   // update the hint container 
   gpcs = dictionary[word];
@@ -68,55 +73,82 @@ function sendHint(position) {
   pushMessage("hint", position);
 }
 
+
+
 // Grade answer 
+// This is triggered by user tap/click in teacehr UI 
+// Passes 1 if correct, 0 if not 
 function gradeAnswer(correct) {
   if(correct) {
     pushMessage('correct');
   } else {
     pushMessage('incorrect');
   }
+  updateScore(correct); 
   pickWord(); 
 }
 
 
-// Pick new word and send to student 
-function pickWord() {
-
-  // Advance through the list 
-  word_index = word_index + 1; 
-
-  // Get the word by its position in the curriculum
-  word_from_dictionary = curriculum[word_index]; 
 
 
-  // set that word as the current word 
-  updateWord( word_from_dictionary )
+// Update user's score 
+// Update set if needed 
+function updateScore(increment) {
+  score = score + increment; 
+
+  if (score % 7 == 0 && increment > 0) {
+    set_index++;
+    currentSet = curriculum[set_index];
+  }
 }
 
 
+
+// Pick new word
+function pickWord() {
+
+  // Pick a random word from the set 
+  var word = currentSet[Math.floor(Math.random()*currentSet.length)];
+
+  // Now find that word in the dictionary 
+  word_from_dictionary = word; 
+
+
+  // Send that word to the student
+  sendWordToStudent( word_from_dictionary );
+}
+
+
+
+
+
+//DEPRECATED FOR NOW 
 function setup() {
 
-  // Start at the first word in the list 
-  word_index = 0; 
-
-
   // Write the list of words to the page
-  curriculum.forEach(function(word) {
-    el = $("<li>" + word + "</li>" );
-    $("#wordList").append( el );
-  });
+  // curriculum.forEach(function(word) {
+  //   el = $("<li>" + word + "</li>" );
+  //   $("#wordList").append( el );
+  // });
 
 
-  // Add click handlers to the words 
-  $( "#wordList li" ).click(function() {
-    var word = $(this).text(); 
-    updateWord(word, true);
-  });
+  // // Add click handlers to the words 
+  // $( "#wordList li" ).click(function() {
+  //   var word = $(this).text(); 
+  //   updateWord(word, true);
+  // });
 
   
 }
 
 
-$(document).ready(function() {
-  setup();
-});
+// load the sets 
+// pick the set -- word index will become set index 
+// logic for when the set completes 
+// now cycle randomly in the set 
+
+
+
+
+
+

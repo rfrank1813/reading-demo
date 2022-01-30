@@ -2,59 +2,60 @@
 dictionary = {
   
   'a' : ['a~ae'],
+  'b' : ['b~b'],
+  'c' : ['c~k'],
+  'd' : ['d~d'],
+  'e' : ['e~eh'],
+  'f' : ['f~f'],
+  'g' : ['g~g'],
+  'h' : ['h~h'],
+  'i' : ['i~ih'],
+  'j' : ['j~j'],
+  'k' : ['k~k'],
+  'l' : ['h~h'],
+  'm' : ['m~m'],
+  'n' : ['n~n'],
+  'o' : ['o~ah'],
+  'p' : ['p~p'],
+  'q' : ['h~h'],
+  'r' : ['r~r'],
+  's' : ['s~s'],
   't' : ['t~t'],
-  'at' : ['a~ae', 't~t'],
+  'u' : ['u~u'],
+  'v' : ['v~v'],
+  'w' : ['w~w'],
+  'x' : ['h~h'],
+  'y' : ['y~y'],
+  'z' : ['z~z'],
 
+
+
+
+
+  'at' : ['a~ae', 't~t'],
   'am' : ['a~ae', 'm~m'],
   'ad' : ['a~ae', 'd~d'],
   'it' : ['i~ih', 't~t'],
+  'ed' : ['e~eh', 'd~d'],
 
 
 
-  'm' : ['m~m'],
-  'at' : ['a~ae', 't~t'],
   'mat' : ['m~m', 'a~ae', 't~t'],
-
-  'c' : ['c~k'],
-  'at' : ['a~ae', 't~t'],
   'cat' : ['c~k', 'a~ae', 't~t'],
-
-  's' : ['s~s'],
-  'at' : ['a~ae', 't~t'], 
   'sat' : ['s~s', 'a~ae', 't~t'],
-
-
-  'r' : ['r~r'],
-  'at' : ['a~ae', 't~t'],
   'rat' : ['r~r', 'a~ae', 't~t'],
-
-  'b' : ['b~b'],
-  'at' : ['a~ae', 't~t'],
   'bat' : ['b~b', 'a~ae', 't~t'],
-
-
-  'f' : ['f~f'],
-  'at' : ['a~ae', 't~t'],
-  'fat' : ['f~f', 'a~ae', 't~t'],
-
-
-  'p' : ['p~p'],
-  'at' : ['a~ae', 't~t'],
-  'pat' : ['p~p', 'a~ae', 't~t'],
-
-
-  'mat' : ['m~m', 'a~ae', 't~t'],
-  'cat' : ['c~k', 'a~ae', 't~t'],
-  'sat' : ['s~s', 'a~ae', 't~t'],
-  'rat' : ['r~r', 'a~ae', 't~t'],
   'fat' : ['f~f', 'a~ae', 't~t'],
   'pat' : ['p~p', 'a~ae', 't~t'],
+
   
   'sam' : ['s~s', 'a~ae', 'm~m'],
   'pam' : ['p~p', 'a~ae', 'm~m'],
   'dam' : ['d~d', 'a~ae', 'm~m'],
   'ram' : ['r~r', 'a~ae', 'm~m'],
   'cam' : ['c~k', 'a~ae', 'm~m'],
+  'bam' : ['b~b', 'a~ae', 'm~m'],
+
   
   'tan' : ['t~t', 'a~ae', 'n~n'],
   'dan' : ['d~d', 'a~ae', 'n~n'],
@@ -76,6 +77,9 @@ dictionary = {
   'map' : ['m~m', 'a~ae', 'p~p'],
   'lap' : ['l~l', 'a~ae', 'p~p'],
   'nap' : ['n~n', 'a~ae', 'p~p'],
+  'cab' : ['c~k', 'a~ae', 'b~b'],
+  'lab' : ['l~l', 'a~ae', 'b~b'],
+  'tab' : ['t~t', 'a~ae', 'b~b'],
   
 
   
@@ -87,19 +91,13 @@ dictionary = {
   'sep' : ['s~s', 'e~eh', 'p~p'],
   'pep' : ['p~p', 'e~eh', 'p~p'],
   'rep' : ['r~r', 'e~eh', 'p~p'],
-
   'med' : ['m~m', 'e~eh', 'd~d'],
   'met' : ['m~m', 'e~eh', 't~t'],
-  'elm' : ['e~eh', 'l~l', 'm~m'],
-
   'bed' : ['b~b', 'e~eh', 'd~d'],
   'bet' : ['b~b', 'e~eh', 't~t'],
-  'cab' : ['c~k', 'a~ae', 'b~b'],
-  'lab' : ['l~l', 'a~ae', 'b~b'],
-  'tab' : ['t~t', 'a~ae', 'b~b'],
-  'imp' : ['i~ih', 'm~m', 'p~p'],
+
+
   'dip' : ['d~d', 'i~ih', 'p~p'],
-  'mid' : ['m~m', 'i~ih', 'd~d'],
   'sis' : ['s~s', 'i~ih', 's~s'],
   'sip' : ['s~s', 'i~ih', 'p~p'],
   'sit' : ['s~s', 'i~ih', 't~t'],
