@@ -4,7 +4,7 @@ var curriculum = readingCurriculum; // The ordered array of words and letters th
 
 
 // Some setup variables 
-var superset_mode = 1; 
+var superset_mode = 0; 
 var set_index = 0; 
 if (superset_mode) {
   currentSet = curriculum;
@@ -129,29 +129,6 @@ function pickWord() {
 
 
   sendWordToStudent( word );
-}
-
-
-
-
-
-//DEPRECATED FOR NOW 
-function setup() {
-
-  // Write the list of words to the page
-  // curriculum.forEach(function(word) {
-  //   el = $("<li>" + word + "</li>" );
-  //   $("#wordList").append( el );
-  // });
-
-
-  // // Add click handlers to the words 
-  // $( "#wordList li" ).click(function() {
-  //   var word = $(this).text(); 
-  //   updateWord(word, true);
-  // });
-
-  
 }
 
 

@@ -29,6 +29,18 @@ dictionary = {
   'z' : ['z~z'],
 
 
+  'ch' : ['ch~ch'],
+  'ea' :['ea~iy'],
+  'ee' : ['ee~iy'],
+  'sh' : ['sh~sh'],
+  'st' : ['s~s', 't~t'],
+
+
+
+
+
+
+
 
 
 
