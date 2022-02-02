@@ -44,10 +44,9 @@ var u_vowel_words = ['cut', 'cup', 'mud', 'pup', 'tub', 'bus', 'bud', 'but', 'du
 
 var digraphs = ['ch', 'sk', 'ck', 'ng', 'sh', 'th', 'st', 'sp', 'ee', 'oo' ]
 
-var ee_words = ['peek', 'beef', 'sheet', 'weed', 'keep', 'steep', 'jeep', 'bee', 'see', 'sheep', 'peep', 'keep', 'leep', 'reed', 'reef', 'free', 'seek', 'teen', ]
+var ee_words = ['peek', 'beef', 'sheet', 'weed', 'keep', 'steep', 'jeep', 'bee', 'see', 'sheep', 'peep', 'keep', 'reed', 'reef', 'free', 'seek', 'teen', ]
 
-// Not in dictionary yet
-// var oo_words = ['food', 'poop', 'scoop', 'loop', 'pool']
+var oo_words = ['food', 'poop', 'scoop', 'loop', 'pool']
 
 var ea_words = ['leap', 'weak', 'seal', 'neat', 'beast', 'real', 'jeans', 'beach', 'deal', 'read', 'cream', 'heat', 'scream', 'peach', 'bead', 'neat', 'meat', 'cheat', 'beat', 'team', 'treat', 'steam', 'beam', 'seat' ]
 
@@ -65,10 +64,10 @@ var sh_words = ['ship', 'dish',  'trash', 'crash', 'brush', 'shot', 'shut', 'sha
 // Next up: 
 // oo, ee, ea, ch, sh, st
 // Up to 4 letter words with each of those
-var digraphs_1 = ['ee', 'ea', 'ch', 'sh', 'st']
+var digraphs_1 = ['ee', 'ea', 'ch', 'sh', 'st', 'oo']
 
 
-level_2 = [digraphs_1, ee_words, ea_words, ch_words, sk_words, ck_words, sh_words, ng_words ]
+level_2 = [digraphs_1, ee_words, oo_words, ea_words, ch_words, sk_words, ck_words, sh_words, ng_words ]
 
 // Level 2 -- All the words mi
 level_1_test = two_letter_words.concat(at_words, am_words, ap_ab_words, e_vowel_words, i_vowel_words, o_vowel_words, u_vowel_words); 

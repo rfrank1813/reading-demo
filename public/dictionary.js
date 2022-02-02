@@ -32,15 +32,17 @@ dictionary = {
   'ch' : ['ch~ch'],
   'ea' :['ea~iy'],
   'ee' : ['ee~iy'],
+  'oo' : ['oo~uw'],
   'sh' : ['sh~sh'],
   'st' : ['s~s', 't~t'],
 
 
-
-
-
-
-
+  'pool' : ['p~p' , 'oo~uw', 'l~l' ],
+  'fool' : ['f~f' , 'oo~uw', 'l~l' ],
+  'loop' : ['l~l' , 'oo~uw', 'p~p'],
+  'poop' : ['p~p' , 'oo~uw', 'p~p'],
+  'food' : ['f~f',  'oo~uw', 'd~d' ],
+  'scoop' : ['s~s', 'c~k', 'oo~uw', 'p~p' ],
 
 
 
@@ -1116,6 +1118,7 @@ dictionary = {
   'reefs' : ['r~r', 'ee~iy', 'f~f', 's~s'],
   'peek' : ['p~p', 'ee~iy', 'k~k'],
   'peep' : ['p~p', 'ee~iy', 'p~p'],
+  'jeep' : ['j~jh', 'ee~iy', 'p~p'],
   'meek' : ['m~m', 'ee~iy', 'k~k'],
   'meet' : ['m~m', 'ee~iy', 't~t'],
   'sheets' : ['sh~sh', 'ee~iy', 't~t', 's~s'],
