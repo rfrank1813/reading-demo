@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<head>
+  <title>TEACHER</title>
+  <script
+  src="https://code.jquery.com/jquery-3.4.0.min.js"
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+
+  <!-- Adds wordList to the global scope. -->
+  <script src="/reading/dictionary.js"></script>
+  <script src="/reading/readingCurriculum.js"></script>
+
+
+  <script src="/reading/teacher.js"></script>
+
+  <link rel="stylesheet" href="https://static.classdojo.com/fonts/proxima/proximanova-default-stack.css"/>
+
+  <style>
+
+    body {
+      margin: 0; 
+      background: url(/gradient.png);
+      font-family: "proxima-nova", sans-serif;
+      color: #AAB0D8;
+    }
+
+    table.full-width {
+      width: 100%; 
+      margin: 0; 
+      border-bottom: 3px solid white; 
+    }
+ 
+
+    button {
+      width: 100% ;
+      margin: 0;
+      min-height: 300px;
+      font-size: 200px;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      border:0;
+      background:none; 
+    }
+
+    #wordList {
+      padding-top: 10px;
+      text-align: center;
+      overflow-y: scroll;
+      max-height: 800px;
+    }
+
+    #wordList li {
+      display: block; 
+      font-size: 3em; 
+      margin-bottom: 20px;
+    }
+
+    .smiley-buttons {
+      height: 300px;
+      width: 100%; 
+      padding: 50px 0;
+    }
+
+    .smiley-buttons button {
+      width: 50%;
+      float: left; 
+      padding: 0;
+      margin: 0;
+    }
+
+    .smiley-buttons img {
+      width: 100%;
+      max-width: 300px;
+      min-width: 300px;
+    }
+
+    .hint-container {
+      text-align: center;
+    }
+
+    .hint-container span {
+      font-size: 240px;
+      line-height: 120px;
+      cursor: pointer;
+    }
+
+    .divider {
+      background: rgba(244, 236, 250, 10);
+      clear: both;
+      height: 20px;
+      width: 60%;
+      margin: 40px auto;
+      border-radius: 30px;
+    }
+
+    ol {
+      display: block;
+      width:  80%;
+      margin:  20px auto;  
+    }
+
+    ol li { 
+      margin:  20px; 
+      font-size:  1.5em; 
+    }
+
+    ol li a, ol li a:visited {
+      color:  white; 
+    }
+
+
+  </style>
+  
+
+
+
+  <link rel="stylesheet" type="text/css" href="/style.css">
+
+</head>
+<body>
+
+  <div class="smiley-buttons">
+    <button onclick="gradeAnswer(1)">
+      <img src="/happy.png"/>
+    </button>
+
+    <button onclick="gradeAnswer(0)">
+      <img src="/dead.png"/>
+    </button>
+  </div>  
+
+  <div class="divider"></div> 
+
+  <div id="hint-message" style="display: none; text-align: center; font-size: 2em">tap a sound to send a hint</div>
+  <div class="hint-container">
+    <span style="font-size: 120px"> tap word to start </span>
+  </div>
+
+  <div class="divider"></div> 
+
+
+
+  <ol id="curriculumLevels">
+
+
+  </ol>
+
+</body>
+
+<script>
+
+</script>

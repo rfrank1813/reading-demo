@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<head>
+  <title>Read a word</title>
+  <script
+  src="https://code.jquery.com/jquery-3.4.0.min.js"
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.js"></script>
+  <script src="/reading/student.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://static.classdojo.com/fonts/proxima/proximanova-default-stack.css"/>
+
+  <style>
+
+    body {
+      font-family: "proxima-nova";
+      background: url(/gradient.png);
+      color: #AAB0D8;
+      font-size:  6em;
+    }
+
+    h1 {
+      display: block;
+      text-align: center;
+      margin: 0 auto;
+      font-size: 300px;
+      text-transform: none;
+      font-family: "proxima-nova";
+      color: #AAB0D8;
+      position: relative;
+      top: -60px;
+    }
+
+    .game-wrapper {
+      display: block; 
+      width: 100%; 
+      position: fixed; 
+      top: 0px; 
+      bottom: 0px; 
+    }
+
+    .gameplay-container {
+      width: 80%; 
+      margin: 100px auto;
+      position: relative;
+      height: 440px;
+    }
+
+    .progress-tracker {
+      height: 15px;
+      background: #AAB0D8;
+      width: 50%;
+      position: relative;
+      top: 30px;
+      border-radius: 32px;
+      margin: auto;
+    }
+
+    .progress-tracker-inner {
+      position: absolute;
+      height: 15px; 
+      width: 0%; 
+      background: #0ab311;
+      border-radius: 32px 0 0 32px;
+    }
+
+    .empty-circle {
+      height: 54px;
+      width: 54px;
+      float: left;
+      margin-right: 11px;
+      background: #AAB0D8;
+      border-radius: 60px;
+      position: relative;
+      z-index: -1;
+      top: 3px;
+      left: 2px;
+    }
+
+
+
+    .big-correct {
+      width: 300px;
+      height: 300px; 
+      position:relative;
+      top:50px;
+    }
+
+    button {
+      font-size: 1em;
+      padding: .2em;
+    }
+
+    .go-button {
+      width: 50%;
+      border-radius: 300px;
+      cursor: pointer;
+      color: inherit;
+      background: none;
+      border: 2px solid white;
+      margin: auto;
+      display: block;
+    }
+
+    .scoreboard-positioner {
+      position:  absolute;
+      left:  0;
+      right:  0; 
+      bottom:  0;
+      height:  200px;
+    }
+    .scoreboard {
+      width:  400px;
+      margin: auto; 
+    }
+
+    .scoreboard-smiley {
+      position:  relative;
+      top:  20px;
+    }
+
+    .game-clock {
+      float:  right; 
+      font-size:  200px;
+      margin:  20px;
+    }
+
+  </style>
+
+</head>
+
+
+<BODY>
+
+  <div class="game-wrapper">
+
+    <div id="timer" class="game-clock">
+      35
+    </div>
+
+
+    <div class="progress-tracker">
+      <!-- JS fills this with 1 div for each level -->
+      <div class="progress-tracker-inner"></div>
+    </div>
+
+    <div class="gameplay-container">
+
+      <button class='go-button' onclick="ready()">Start</button>
+      
+      <h1 id="word">
+          <!-- filled with the word by JS  -->
+      </h1>
+    </div>
+
+    <div class="scoreboard-positioner">
+      <div class="scoreboard">
+        <img width="100px" class='scoreboard-smiley' src='/happy.png'/>
+        x
+        <span id="score-counter">0</span>
+      </div>
+    </div>
+
+  </div>
+
+</BODY>

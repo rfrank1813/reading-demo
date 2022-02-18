@@ -18,11 +18,11 @@ app.use(express.static('public'))
 app.get('/', (req,res) =>
   res.sendFile("index.html", sendFileOptions))
 
-app.get('/student', (req, res) => 
-  res.sendFile('student.html', sendFileOptions))
+app.get('/reading/student', (req, res) => 
+  res.sendFile('reading/student.html', sendFileOptions))
 
-app.get('/teacher', (req,res) =>
-  res.sendFile('teacher.html', sendFileOptions))
+app.get('/reading/teacher', (req,res) =>
+  res.sendFile('reading/teacher.html', sendFileOptions))
 
 app.get('/letters', (req,res) =>
   res.sendFile("letters.html", sendFileOptions))
