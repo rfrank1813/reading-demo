@@ -1,12 +1,14 @@
+// 
 // Some global variables -- Imported from files of the same name. 
+// 
 var dictionary = dictionary; // The lookup table for words and their GPCs
 var levelsList = readingCurriculum; // The ordered array of words and letters that make up the curriculum 
-window.levelsList = levelsList;
 
-
+console.log(levelsList);
 
 // This next block is getting the level from urlParam
 // And then setting the appropriate level
+// 
 function getParameterByName(name, url = window.location.href) {
   name = name.replace(/[\[\]]/g, '\\$&');
   var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
@@ -16,35 +18,61 @@ function getParameterByName(name, url = window.location.href) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-var levelParam = getParameterByName('level');
-window.levelParem = levelParam; 
-console.log("level name: ", levelParam); 
 
-var level = 0; 
+
+// 
+// Some setup variables
+// 
+var levelParam      = getParameterByName('level');
+var supersetParam  = getParameterByName('superset');
+var set_index       = 0; 
+var score           = 0; 
+var level           = 0; 
 
 if (levelParam != null) {
   level = levelParam;
 }
 
-console.log("Level: ", level); 
 
 var curriculum = levelsList[level].content; 
 
 
 
 
-// Some setup variables 
-var superset_mode = 0; 
-var set_index = 0; 
-if (superset_mode) {
-  currentSet = curriculum;
+
+// 
+// When in superset mode, there is only one 'set', so no need to worry about the logic of advancing through the sets. 
+// However, what we want to do is combine all sets when the randomize param is set to true. 
+var wordList = []; 
+if(supersetParam) {
+  superset_mode = true; 
+
+  // Loop through all sets and create a new randomized list. 
+  // Actually list doesn't need to be randomized because we pick randomly later. 
+
+  // Content is always a list of lists of words
+  level.content.forEach(function(set) {
+
+    set.forEach(function(word) {
+      wordList.push(word); 
+    });
+  });
+
+  currentSet = wordList
+
 } else {
-  currentSet = curriculum[set_index];
+  currentSet = curriculum[0];
 }
-var score = 0; 
 
 
-// All my websocket stuff 
+
+
+
+
+
+// 
+// Websocket stuff 
+// 
 var connection = new WebSocket('ws://'+location.hostname+':82'); 
 
 connection.onopen = function (e) { 
@@ -73,6 +101,11 @@ function pushMessage(action, data={}) {
 };
 
 
+
+
+// 
+// 
+// 
 function sendWordToStudent (word, forceUpdate=false) {
   
   // Lookup word in dictionary to get the GPCs
@@ -110,10 +143,17 @@ function sendWordToStudent (word, forceUpdate=false) {
   pushMessage("word", {gpcs: gpcs, forceUpdate: forceUpdate});
 }
 
+
+
+
+// 
+// 
 // Send a hint
 function sendHint(position) { 
   pushMessage("hint", position);
 }
+
+
 
 
 
@@ -132,13 +172,16 @@ function gradeAnswer(correct) {
 
 
 
+
+
+// 
 // Update user's score 
 // Update set if needed 
 function updateScore(increment) {
   score = score + increment; 
 
   if (score % 7 == 0 && increment > 0) {
-    if(superset_mode) { return; }
+    // if(superset_mode) { return; }
     set_index++;
     currentSet = curriculum[set_index];
   }
@@ -146,13 +189,22 @@ function updateScore(increment) {
 
 
 
+
+
+
+// 
 // Pick new word
+// 
 function pickWord() {
+
+
+  console.log("Current set:"); 
+  console.log(currentSet);
 
   // If currentSet is empty, refill the set. 
   // This prevents recycling the same word over and over 
   if (currentSet.length == 0) {
-    if(superset_mode) { return; }
+    // if(superset_mode) { return; }
     currentSet = curriculum[set_index];
   }
 
@@ -169,6 +221,11 @@ function pickWord() {
 }
 
 
+
+
+// 
+// Adds the levels list to the page. 
+// 
 document.addEventListener("DOMContentLoaded", function(event) {
   levelsList.forEach(function(level, index) {
     console.log(level.description);

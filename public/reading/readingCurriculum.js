@@ -35,9 +35,9 @@ var two_letter_words = ['at', 'am', 'it', 'ed', 'ad']
 var at_words = ['mat', 'cat', 'rat', 'fat', 'pat', 'sat' ]
 
 
-var am_words = ['sam', 'pam', 'ram', 'cam', 'dam', 'bam', 'ham']
+var am_words = ['sam', 'pam', 'ram', 'dam', 'bam', 'ham']
 
-var ad_words = ['mad', 'sad', 'bad', 'dad', 'fad', 'had', 'tad', 'fad']
+var ad_words = ['mad', 'sad', 'bad', 'dad', 'had', 'tad', 'fad']
 
 var ap_ab_words = [
   'cap' ,
@@ -148,8 +148,8 @@ var sight_words_2 = [
 
 
 var level_1 = [
-  long_consonants, short_consonants_1, 
-  two_letter_words, 
+  // long_consonants, short_consonants_1, 
+  // two_letter_words, 
   at_words, am_words, ad_words, ap_ab_words, e_vowel_words, i_vowel_words,
   o_vowel_words,
   u_vowel_words
